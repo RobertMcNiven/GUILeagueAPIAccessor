@@ -5,7 +5,6 @@ import json
 root = Tk()
 enterSummonerName = Entry(root)
 enterSummonerName.grid(row = 0, column = 1)
-# comment
 
 apiKey = "RGAPI-a1d63c08-04ab-4f2f-b9b8-eb5662129f4f"
 
