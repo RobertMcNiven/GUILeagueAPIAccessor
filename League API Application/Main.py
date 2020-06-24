@@ -6,7 +6,7 @@ root = Tk()
 enterSummonerName = Entry(root)
 enterSummonerName.grid(row = 0, column = 1)
 
-apiKey = "RGAPI-b29dc5fd-84c4-4e7f-a849-27c959ad7bab"
+apiKey = "MAKE SURE TO ADD THE API KEY BEFORE RUNNING"
 print(apiKey)
 if apiKey == "MAKE SURE TO ADD THE API KEY BEFORE RUNNING":
     exit()
