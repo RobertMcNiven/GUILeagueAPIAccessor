@@ -6,7 +6,10 @@ root = Tk()
 enterSummonerName = Entry(root)
 enterSummonerName.grid(row = 0, column = 1)
 
-apiKey = "RGAPI-a1d63c08-04ab-4f2f-b9b8-eb5662129f4f"
+apiKey = "MAKE SURE TO ADD THE API KEY BEFORE RUNNING"
+print(apiKey)
+if apiKey == "MAKE SURE TO ADD THE API KEY BEFORE RUNNING":
+    exit()
 
 inGameName = ""
 tier = ""
@@ -22,12 +25,135 @@ placeTierAndRankLabel = Label(root)
 placeLPLabel = Label(root)
 placeWinsAndLossesLabel = Label(root)
 winRateLabel = Label(root)
+
+placeNameRow = 2
+placeNameColumn = 0
+placeTierAndRankRow = 3
+placeTierAndRankColumn = 0
+placeLPRow = 4
+placeLPColumn = 0
+placeWinsAndLossesRow = 5
+placeWinsAndLossesColumn = 0
+winRateRow = 6
+winRateCollumn = 0
+
+def APILookUp(name, amntBeingSearched):
+    
+    if amntBeingSearched == 1:
+        response = requests.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + apiKey)
+        # print(response.content)
+        # print(type(response.content))
+        data = response.json()
+        # print(data)
+        encryptedSummonerId = data["id"]
+        # print(encryptedSummonerId)
+        inGameName = data["name"]
+        level = data["summonerLevel"]
+
+        response2 = requests.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey)
+        # print(response2.content)
+        data2 = response2.json()
+        # print(data2)
+        rankedData = data2[0]
+        # print(rankedData)
+        getQueueType = rankedData["queueType"]
+        if getQueueType == "RANKED_FLEX_SR":
+            rankedData = data2[1]
+            getQueueType = rankedData["queueType"]
+        tier = rankedData["tier"]
+        rank = rankedData["rank"]
+        leaguePoints = rankedData["leaguePoints"]
+        wins = rankedData["wins"]
+        losses = rankedData["losses"]
+        winRatio = int((wins / (wins + losses)) * 100)
+
+        placeName = "Summoner Name: " + inGameName
+        placeNameLabel = Label(root, text = placeName)
+        placeNameLabel.grid(row = placeNameRow, column = 0)
+
+        placeTierAndRank = "Rank: " + tier + " " + rank
+        placeTierAndRankLabel = Label(root, text = placeTierAndRank)
+        placeTierAndRankLabel.grid(row = placeTierAndRankRow, column = 0)
+
+        placeLP = "League Points: " + str(leaguePoints)
+        placeLPLabel = Label(root, text = placeLP)
+        placeLPLabel.grid(row = placeLPRow, column = 0)
+
+        placeWinsAndLosses = "Wins: " + str(wins) + "\tLosses: " + str(losses)
+        placeWinsAndLossesLabel = Label(root, text = placeWinsAndLosses)
+        placeWinsAndLossesLabel.grid(row = placeWinsAndLossesRow, column = 0)
+
+        winRate = "Winrate: " + str(winRatio) + "%"
+        winRateLabel = Label(root, text = winRate)
+        winRateLabel.grid(row = winRateRow, column = 0)
+
+    elif amntBeingSearched == 5:
+
+        response = requests.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + apiKey)
+        # print(response.content)
+        # print(type(response.content))
+        data = response.json()
+        # print(data)
+        encryptedSummonerId = data["id"]
+        # print(encryptedSummonerId)
+        inGameName = data["name"]
+        level = data["summonerLevel"]
+
+        response2 = requests.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey)
+        # print(response2.content)
+        data2 = response2.json()
+        print(data2)
+        rankedData = data2[0]
+        # print(rankedData)
+        getQueueType = rankedData["queueType"]
+        if getQueueType == "RANKED_FLEX_SR":
+            rankedData = data2[1]
+            getQueueType = rankedData["queueType"]
+        tier = rankedData["tier"]
+        rank = rankedData["rank"]
+        leaguePoints = rankedData["leaguePoints"]
+        wins = rankedData["wins"]
+        losses = rankedData["losses"]
+        winRatio = int((wins / (wins + losses)) * 100)
+
+        placeName = "Summoner Name: " + inGameName
+        placeNameLabel = Label(root, text = placeName)
+        placeNameLabel.grid(row = placeNameRow, column = placeNameColumn)
+
+        placeTierAndRank = "Rank: " + tier + " " + rank
+        placeTierAndRankLabel = Label(root, text = placeTierAndRank)
+        placeTierAndRankLabel.grid(row = placeTierAndRankRow, column = placeTierAndRankColumn)
+
+        placeLP = "League Points: " + str(leaguePoints)
+        placeLPLabel = Label(root, text = placeLP)
+        placeLPLabel.grid(row = placeLPRow, column = placeLPColumn)
+
+        placeWinsAndLosses = "Wins: " + str(wins) + "\tLosses: " + str(losses)
+        placeWinsAndLossesLabel = Label(root, text = placeWinsAndLosses)
+        placeWinsAndLossesLabel.grid(row = placeWinsAndLossesRow, column = placeWinsAndLossesColumn)
+
+        winRate = "Winrate: " + str(winRatio) + "%"
+        winRateLabel = Label(root, text = winRate)
+        winRateLabel.grid(row = winRateRow, column = winRateCollumn)
+
 def click():
     global placeNameLabel
     global placeTierAndRankLabel
     global placeLPLabel
     global placeWinsAndLossesLabel
     global winRateLabel
+
+    global placeNameColumn
+    global placeTierAndRankColumn
+    global placeLPColumn
+    global placeWinsAndLossesColumn
+    global winRateCollumn
+
+    global placeNameRow
+    global placeTierAndRankRow
+    global placeLPRow
+    global placeWinsAndLossesRow
+    global winRateRow
 
     placeNameLabel.destroy()
     placeTierAndRankLabel.destroy()
@@ -36,51 +162,43 @@ def click():
     winRateLabel.destroy()
 
     summonerName = enterSummonerName.get()
-    response = requests.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName + "?api_key=" + apiKey)
-    # print(response.content)
-    # print(type(response.content))
-    data = response.json()
-    encryptedSummonerId = data["id"]
-    # print(encryptedSummonerId)
-    inGameName = data["name"]
-    level = data["summonerLevel"]
+    # print(summonerName)
 
-    response2 = requests.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey)
-    # print(response2.content)
-    data2 = response2.json()
-    rankedData = data2[0]
-    # print(rankedData)
-    getQueueType = rankedData["queueType"]
-    if getQueueType == "RANKED_FLEX_SR":
-        rankedData = data2[1]
-        getQueueType = rankedData["queueType"]
-    tier = rankedData["tier"]
-    rank = rankedData["rank"]
-    leaguePoints = rankedData["leaguePoints"]
-    wins = rankedData["wins"]
-    losses = rankedData["losses"]
-    winRatio = int((wins / (wins + losses)) * 100)
+    allSummonerNames = summonerName.split()
+    allSummonerNamesLength = len(allSummonerNames)
+
+    if allSummonerNamesLength == 1:
+        APILookUp(summonerName, 1)
+        placeNameRow += 7
+        placeTierAndRankRow += 7
+        placeLPRow += 7
+        placeWinsAndLossesRow += 7
+        winRateRow += 7
     
-    placeName = "Summoner Name: " + inGameName
-    placeNameLabel = Label(root, text = placeName)
-    placeNameLabel.grid(row = 2, column = 0)
+    elif allSummonerNamesLength > 1:
+        listOfAllNames = [str(allSummonerNames[0]), str(allSummonerNames[4]), str(allSummonerNames[8]), str(allSummonerNames[12]), str(allSummonerNames[16])]
+        # print(listOfAllNames)
 
-    placeTierAndRank = "Rank: " + tier + " " + rank
-    placeTierAndRankLabel = Label(root, text = placeTierAndRank)
-    placeTierAndRankLabel.grid(row = 3, column = 0)
+        for i in range(len(listOfAllNames)):
+            print(listOfAllNames[i])
+            APILookUp(str(listOfAllNames[i]), 5)
+            placeNameColumn += 1
+            placeTierAndRankColumn += 1
+            placeLPColumn += 1
+            placeWinsAndLossesColumn += 1
+            winRateCollumn += 1
 
-    placeLP = "League Points: " + str(leaguePoints)
-    placeLPLabel = Label(root, text = placeLP)
-    placeLPLabel.grid(row = 4, column = 0)
+        placeNameColumn = 0
+        placeTierAndRankColumn = 0
+        placeLPColumn = 0
+        placeWinsAndLossesColumn = 0
+        winRateCollumn = 0
 
-    placeWinsAndLosses = "Wins: " + str(wins) + "\tLosses: " + str(losses)
-    placeWinsAndLossesLabel = Label(root, text = placeWinsAndLosses)
-    placeWinsAndLossesLabel.grid(row = 5, column = 0)
-
-    winRate = "Winrate: " + str(winRatio) + "%"
-    winRateLabel = Label(root, text = winRate)
-    winRateLabel.grid(row = 6, column = 0)
-
+        placeNameRow += 7
+        placeTierAndRankRow += 7
+        placeLPRow += 7
+        placeWinsAndLossesRow += 7
+        winRateRow += 7
 
 mainButton = Button(root, text = "ENTER NAME", command = click)
 
