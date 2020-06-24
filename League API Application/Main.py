@@ -6,7 +6,7 @@ root = Tk()
 enterSummonerName = Entry(root)
 enterSummonerName.grid(row = 0, column = 1)
 
-apiKey = "MAKE SURE TO ADD THE API KEY BEFORE RUNNING"
+apiKey = "RGAPI-b29dc5fd-84c4-4e7f-a849-27c959ad7bab"
 print(apiKey)
 if apiKey == "MAKE SURE TO ADD THE API KEY BEFORE RUNNING":
     exit()
@@ -102,7 +102,7 @@ def APILookUp(name, amntBeingSearched):
         response2 = requests.get("https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + encryptedSummonerId + "?api_key=" + apiKey)
         # print(response2.content)
         data2 = response2.json()
-        print(data2)
+        # print(data2)
         rankedData = data2[0]
         # print(rankedData)
         getQueueType = rankedData["queueType"]
@@ -164,23 +164,29 @@ def click():
     summonerName = enterSummonerName.get()
     # print(summonerName)
 
-    allSummonerNames = summonerName.split()
-    allSummonerNamesLength = len(allSummonerNames)
-
-    if allSummonerNamesLength == 1:
+    if "joined the lobby" in summonerName:
+        allSummonerNames = summonerName.split("joined the lobby", 5)
+    else:
         APILookUp(summonerName, 1)
         placeNameRow += 7
         placeTierAndRankRow += 7
         placeLPRow += 7
         placeWinsAndLossesRow += 7
         winRateRow += 7
+
+    allSummonerNamesLength = len(allSummonerNames)
     
-    elif allSummonerNamesLength > 1:
-        listOfAllNames = [str(allSummonerNames[0]), str(allSummonerNames[4]), str(allSummonerNames[8]), str(allSummonerNames[12]), str(allSummonerNames[16])]
+    if allSummonerNamesLength > 1:
+        listOfAllNames = [str(allSummonerNames[0]), str(allSummonerNames[1]), str(allSummonerNames[2]), str(allSummonerNames[3]), str(allSummonerNames[4])]
+        # print(listOfAllNames)
+        listOfAllNames[1] = listOfAllNames[1].strip("\n")
+        listOfAllNames[2] = listOfAllNames[2].strip("\n")
+        listOfAllNames[3] = listOfAllNames[3].strip("\n")
+        listOfAllNames[4] = listOfAllNames[4].strip("\n")
         # print(listOfAllNames)
 
         for i in range(len(listOfAllNames)):
-            print(listOfAllNames[i])
+            # print(listOfAllNames[i])
             APILookUp(str(listOfAllNames[i]), 5)
             placeNameColumn += 1
             placeTierAndRankColumn += 1
