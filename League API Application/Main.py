@@ -210,9 +210,13 @@ mainButton = Button(root, text = "ENTER NAME", command = click)
 
 mainButton.grid(row = 1, column = 1)
 
-spacing = Label(root, text = "Enter the summoner you would like to search:")
+spacing = Label(root, text = 'Enter the summoner you would like to search\nor\ncopy the client text "<player> joined the lobby" for all five players:')
 spacing.grid(row = 0, column = 0)
 spacing2 = Label(root, text = "\t")
 spacing2.grid(row = 0, column = 2)
 
+appIcon = PhotoImage(file = "League API Application\icon.png")
+
+root.iconphoto(False, appIcon)
+root.title("League of Legends: Ranked API Accessor")
 root.mainloop()
