@@ -215,12 +215,11 @@ spacing.grid(row = 0, column = 0)
 spacing2 = Label(root, text = "\t")
 spacing2.grid(row = 0, column = 2)
 
-<<<<<<< HEAD
 appIcon = PhotoImage(file = "League API Application\icon.png")
 
 root.iconphoto(False, appIcon)
 root.title("League of Legends: Ranked API Accessor")
 root.mainloop()
-=======
+
 root.mainloop()
->>>>>>> 87fa4013137d18faf11312b8c765176e479c5b2f
+
