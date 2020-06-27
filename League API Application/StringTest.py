@@ -16,3 +16,6 @@ print(str(inputList[12]))
 print(str(inputList[17]))
 print(len(inputList))
 
+# This didnt really work because if the player had spaces in their name it would crash.
+# instead I changed it, in the main file, to split at the '\n' character.
+

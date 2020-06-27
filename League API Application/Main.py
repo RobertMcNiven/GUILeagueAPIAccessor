@@ -1,4 +1,5 @@
 import requests
+# Must have this library for application to work.
 from tkinter import *
 import json
 
@@ -216,6 +217,8 @@ spacing2 = Label(root, text = "\t")
 spacing2.grid(row = 0, column = 2)
 
 appIcon = PhotoImage(file = "League API Application\icon.png")
+
+# I got this image from https://icons8.com/icons/set/league-of-legends
 
 root.iconphoto(False, appIcon)
 root.title("League of Legends: Ranked API Accessor")

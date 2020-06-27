@@ -19,3 +19,15 @@ Rabadon joined the lobby
 SaigeTheQueen joined the lobby
 MalcolmTheKing joined the lobby
 -------------------------------------------------------------------------------
+
+This is a list of some output.
+
+-------------------------------------------------------------------------------
+input: malcolmtheking
+
+Summoner Name: MalcolmTheKing
+Rank: SILVER I
+League Points: 0
+Wins 64     Losses: 70
+Winrate: 47%
+-------------------------------------------------------------------------------
